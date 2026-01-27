@@ -1,0 +1,18 @@
+title: St33v™
+base_url: https://st33v.com
+language: en
+
+label_mode
+
+home_image:
+description = The St33v Label Background.
+file = campsite.png 
+
+-- synopsis
+St33v™ Recording Studio is proud to work with such a varied crew of talented Artists!
+-- synopsis
+
+feeds: all
+
+theme:
+base = light
