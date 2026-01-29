@@ -4,6 +4,10 @@ language: en
 
 label_mode
 
+link:
+label = Song of the Day (Podcast)
+url = https://st33v.com/sotd/
+
 home_image:
 description = The St33v Label Background.
 file = campsite.png 
