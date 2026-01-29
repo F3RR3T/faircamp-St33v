@@ -1,0 +1,29 @@
+# Audio binaries (common)
+*.wav
+*.aiff
+*.aif
+*.flac
+*.alac
+*.mp3
+*.ogg
+*.opus
+*.m4a
+
+# Large DAW / project files (optional)
+*.als
+*.logicx
+*.rpp
+*.ptx
+
+# Builds / outputs (adjust to your actual output dir)
+.faircamp_build/
+.faircamp_cache/
+
+# OS/editor junk
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+deploy.sh

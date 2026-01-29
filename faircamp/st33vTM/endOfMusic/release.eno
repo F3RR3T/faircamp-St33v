@@ -1,0 +1,49 @@
+title: The End Of Music 
+permalink: endofmusic
+date: 2025-09-03
+tags: copy
+
+release_artist: St33v™
+
+release_downloads:
+- flac
+- opus
+- mp3
+
+m3u: disabled
+more_label: Liner Notes
+track_numbering: arabic-dotted
+
+cover:
+description =  An opera singer floridly emotes as fire engulfs the piano on which she is sitting.
+file = albumCover.jpg
+
+-- synopsis
+Artificial Intelligence is metastasizing and smothering human creativity in a tide of _slop_. 
+Well, maybe, but claims of the death of music and the arts have been proven wrong before...
+-- synopsis
+
+-- more
+*The End of Music* is an AI _Tour de Force_, showcasing the stylistic spectrum of AI slop. Don’t worry though, there are traces of beauty and emotion, enough to please the most hardened cynic. Along the way through this concept album, you may find arguments that instil hope for the future, even with the backlash against this new and dubious phenomenon.
+
+All songs rendered on Suno.com using lyrics and style prompts that had been workshopped with chatGPT.
+
+Draft lyrics were augmented and de-cheesified the old fashioned way, by bumping fat fleshy finger tips onto a filthy dusty keyboard.
+
+Candidate tracks were rigorously winnowed and selected using harsh and exacting quality standards, except for track 10.
+
+I hope you enjoy this album of music made by machines for humans.
+
+Concepts and lyrics by St33v™
+
+Post-production by St33v™
+-- more
+
+
+theme:
+accent_brightening = 85
+accent_chroma = 50
+accent_hue = 43
+base = light
+base_chroma = 77
+base_hue = 190
