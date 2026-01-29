@@ -12,6 +12,11 @@ file = campsite.png
 St33v™ Recording Studio is proud to work with such a varied crew of talented Artists!
 -- synopsis
 
+more_label: About St33v™
+--more
+Add some information about the St33v™ label and the music on the site.
+--more
+
 feeds: all
 
 theme:
