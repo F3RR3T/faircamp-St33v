@@ -1,0 +1,17 @@
+name: Song of the Day   
+permalink: sotd
+
+link:
+label = Song of the Day
+url = http://st33v.com
+
+image:
+description = a fresh new song emerges from an egg and sings as it flies into the morning air
+file = sotd_cover.jpg
+
+
+-- more
+Some info about sotd podcast
+
+-- more
+
