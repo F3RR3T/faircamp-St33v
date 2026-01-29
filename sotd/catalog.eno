@@ -8,6 +8,7 @@ more_label: About
 
 feeds: podcast_rss
 
+release_download_access: disabled
 release_downloads:
 - mp3
 - opus
