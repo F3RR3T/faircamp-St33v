@@ -1,0 +1,39 @@
+title: Song of the Day
+base_url: https://st33v.com/sotd/
+language: en
+
+embedding: disabled
+m3u: enabled
+more_label: About
+
+feeds: podcast_rss
+
+release_downloads:
+- mp3
+- opus
+
+home_image:
+description = a fresh new song emerges from an egg in the form of a bird and sings as it flies into the morning air
+file = sotd_cover.png
+
+
+link:
+label = Home | St33v™ Records
+url = https://st33v.com
+
+-- synopsis
+Fresh new music, hot off the presses, perhaps daily but not more frequent.
+-- synopsis
+
+-- more
+
+Some of these songs may appear in albums released on the [St33v™ Record Label](https://st33v.com/) in due course.
+-- more
+
+theme:
+accent_brightening = 85
+accent_chroma = 50
+accent_hue = 23
+base = light
+base_chroma = 34
+base_hue = 180
