@@ -1,0 +1,10 @@
+[Unit]
+Description=Watch forge/in for new SOTD WAV
+
+[Path]
+PathChanged=%h/dox/st33v.com/forge/in
+PathModified=%h/dox/st33v.com/forge/in
+
+[Install]
+WantedBy=default.target
+

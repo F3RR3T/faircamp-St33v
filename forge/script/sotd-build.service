@@ -1,0 +1,8 @@
+[Unit]
+Description=SOTD forge build (forge/in -> forge/out)
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/sotd-build
+WorkingDirectory=%h/dox/st33v.com
+
