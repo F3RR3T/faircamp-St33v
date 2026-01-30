@@ -23,13 +23,25 @@ template_file="$TPL/release.template"
 
 # --- derive variables -----------------------------------------------------
 
+slugify() {
+  echo "$1" \
+    | tr '[:upper:]' '[:lower:]' \
+    | sed -E '
+        s/[^a-z0-9]+/-/g;
+        s/^-+//;
+        s/-+$//
+      '
+}
+
+#---------------------------------------------------------------------------
+title="$(cat "$TPL/title")"
 date_today="$(date -I)"
-slug="sotd-$date_today"
+slug_title="$(slugify "$title")"
+slug="$date_today-$slug_title"
 
 release_dir="$OUT/$slug"
 mkdir -p "$release_dir"
 
-title="$(cat "$TPL/title")"
 cover_desc="Cover image for the song: $title"
 
 has_lyrics=false
