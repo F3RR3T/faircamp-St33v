@@ -1,0 +1,19 @@
+title: {{title}}
+permalink:  {{slug}}
+date: {{date_today}}
+  
+release_artist: Song of the Day  
+
+cover:
+description = {{cover_image_desc}}
+file = cover.png  
+  
+--synopsis  
+{{synopsis}}
+--synopsis  
+  
+more_label: Lyrics    
+    
+--more  
+{{lyrics_md}}
+--more    

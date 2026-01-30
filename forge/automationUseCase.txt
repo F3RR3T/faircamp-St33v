@@ -1,0 +1,52 @@
+# Use case for automation of Song of the Day
+# SJP 30 jan 2026
+This is for edification of LLM:
+
+keyboardMonkey:
+1. User selects sotd (in Suno) 
+2. downloads .wav -> ~/cargo/ 
+3. copies lyrics from suno (copy from browser and paste into 'template/lyrics.txt'
+4. copies cover art and pastes in template/cover.png 
+5. creates 'title' with echo 'my great song title' > title (or equivalent)
+6. user does 'mv ~/cargo/<song>.wav forge/in/.
+7. 'newSotd.path' service is triggered; activates 'newSotd.service' -> newSotd.sh
+
+newSotd.sh:
+8. opens template/release.template for reading
+(this might be too much micromanagament but bear with me and suggest a better way if you like)
+9. open out/release.eno for writing
+10. open template/lyrics for reading (if no lyrics file then the song is instrumental; don't fail but set $has_lyrics=false
+11. append two spaces to the end of each line (to force md display)
+12. read the first few lines of lyrics and copy to $synopsis , keeping < 256 char and adding '/ ' between lines
+
+13. construct $date from system date as string var 'yyyy-mm-dd'
+13a. construct $slug = "sotd-$date"
+14  read template/title and store in $title
+
+14. read a line (of release.templateA)
+
+15. if find a replacement {{}} marker:
+        if slug: write $slug
+16.     if date:  write $date
+17.     if  cover_image_desc, write 'Cover image for the song: $title'
+18.     if title: write $title
+19.     if lyrics: 
+            if $has_lyrics==TRUE  $replace with $lyrics or tempfile (with spaces appended to each line)
+            else: insert "" 
+
+(parsing of template/release.template is complete)
+
+20. mkdir out/$slug
+21. copy out/rlease.eno to out/$slug/release.eno
+(this is messy, but you might be able to make it neater, in conjunction with step 9)(such as, mkdir the final $slug directory right at the start since we already know the date)
+
+22.  close out/$slug/release.eno
+23.  mv <song>.wav from /in to /out/$slug/.
+24.  mv cover.png from template/ to out/$slug
+25.  mv completed song package ($slug directory) to ../sotd/.
+26. execute faircamp --preview (FROM THE SOTD DIRECTORY).
+
+END
+                                                                                                        
+
+
