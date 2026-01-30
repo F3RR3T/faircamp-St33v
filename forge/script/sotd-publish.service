@@ -1,0 +1,8 @@
+[Unit]
+Description=SOTD publish release folder/s (forge/out/ -> sotd/)
+
+[Service]
+Type=oneshot
+ExecStart=%h/bin/sotd-forge-publish.sh
+WorkingDirectory=%h/dox/st33v.com
+

@@ -3,7 +3,10 @@ permalink: sotd-2016-01-29
 date: 2016-01-29  
   
 release_artist: Song of the Day  
-  
+
+cover:
+description = A dejected Pluto sits at a birthday party that never came
+file = pluto.png
   
 --synopsis  
 I was number nine, a proud little sphere,  

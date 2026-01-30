@@ -1,0 +1,16 @@
+rsync -av --delete .faircamp_build/ st33v.com:/srv/www/st33v.com/sotd
+
+
+
+
+systemctl --user daemon-reload
+systemctl --user enable --now sotd-build.path sotd-publish.path
+
+
+systemctl --user status sotd-build.path sotd-publish.path
+
+
+journalctl --user -u sotd-build.service -f
+# and/or
+journalctl --user -u sotd-publish.service -f
+:wq

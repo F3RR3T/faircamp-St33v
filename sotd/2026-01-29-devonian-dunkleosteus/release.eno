@@ -4,6 +4,10 @@ date: 2026-01-29
 
 release_artist: Song of the Day
 
+cover:
+description = A fossilised ancient armoured fish
+file = dunky.png
+
 
 --synopsis
 In Devonian dreams, I swam in ancient streams/ Armored plates of bone now turned to stone, in layers unseen.    

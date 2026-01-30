@@ -1,0 +1,9 @@
+[Unit]
+Description=Publish SOTD when forge/out/PUBLISH appears
+
+[Path]
+PathExists=%h/dox/st33v.com/forge/out/PUBLISH
+
+[Install]
+WantedBy=default.target
+

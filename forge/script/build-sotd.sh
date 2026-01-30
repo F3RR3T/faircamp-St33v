@@ -24,13 +24,15 @@ template_file="$TPL/release.template"
 # --- derive variables -----------------------------------------------------
 
 slugify() {
-  echo "$1" \
+  local s="$1"
+  local ascii
+
+  # Try to transliterate to ASCII; if it fails, keep original
+  ascii="$(printf '%s' "$s" | iconv -f UTF-8 -t ASCII//TRANSLIT 2>/dev/null || printf '%s' "$s")"
+
+  printf '%s' "$ascii" \
     | tr '[:upper:]' '[:lower:]' \
-    | sed -E '
-        s/[^a-z0-9]+/-/g;
-        s/^-+//;
-        s/-+$//
-      '
+    | sed -E 's/[^a-z0-9]+//g'
 }
 
 #---------------------------------------------------------------------------

@@ -3,6 +3,6 @@ Description=SOTD forge build (forge/in -> forge/out)
 
 [Service]
 Type=oneshot
-ExecStart=/usr/local/bin/sotd-build
+ExecStart=/usr/local/bin/build-sotd.sh
 WorkingDirectory=%h/dox/st33v.com
 
