@@ -18,6 +18,8 @@
 # Builds / outputs (adjust to your actual output dir)
 .faircamp_build/
 .faircamp_cache/
+forge/out/
+forge/in/
 
 # OS/editor junk
 .vscode/

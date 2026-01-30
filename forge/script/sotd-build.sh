@@ -50,21 +50,27 @@ if $has_lyrics; then
 fi
 
 # --- render template ------------------------------------------------------
+export TITLE="$title"
+export SLUG="$slug"
+export DATE_TODAY="$date_today"
+export COVER_DESC="$cover_desc"
+export SYNOPSIS="$synopsis"
+export LYRICS_MD="$lyrics_md"
 
 release_eno="$release_dir/release.eno"
 
-sed \
-  -e "s|{{title}}|$title|g" \
-  -e "s|{{slug}}|$slug|g" \
-  -e "s|{{date_today}}|$date_today|g" \
-  -e "s|{{cover_image_desc}}|$cover_desc|g" \
-  -e "s|{{synopsis}}|$synopsis|g" \
-  -e "s|{{lyrics_md}}|$lyrics_md|g" \
-  "$template_file" > "$release_eno"
+perl -0777 -pe '
+  s/\{\{title\}\}/$ENV{TITLE}/g;
+  s/\{\{slug\}\}/$ENV{SLUG}/g;
+  s/\{\{date_today\}\}/$ENV{DATE_TODAY}/g;
+  s/\{\{cover_image_desc\}\}/$ENV{COVER_DESC}/g;
+  s/\{\{synopsis\}\}/$ENV{SYNOPSIS}/g;
+  s/\{\{lyrics_md\}\}/$ENV{LYRICS_MD}/g;
+' "$template_file" > "$release_eno"
 
 # --- move assets ----------------------------------------------------------
 
-mv "${wav[0]}" "$release_dir/song.wav"
+mv "${wav[0]}" "$release_dir/"
 
 if [[ -f "$TPL/cover.jpg" ]]; then
   cp "$TPL/cover.jpg" "$release_dir/cover.jpg"
