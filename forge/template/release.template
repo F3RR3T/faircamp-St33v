@@ -6,7 +6,7 @@ release_artist: Song of the Day
 
 cover:
 description = {{cover_image_desc}}
-file = cover.png  
+file = cover.jpg
   
 --synopsis  
 {{synopsis}}
