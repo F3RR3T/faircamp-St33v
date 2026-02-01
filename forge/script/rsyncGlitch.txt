@@ -1,0 +1,51 @@
+This is background for gpt.
+Here I explain th details of the static site generation schema for st33v.com.
+
+Brifely, the site is built from two 'faircamp's:
+ one for the main site and 
+ song of the day (sotd), which lives in st33v.com/sotd (i.e thats its base url)
+
+detail:
+st33v@cr4y:~/dox/st33v.com$ tree -La 2
+.
+├── faircamp
+│   ├── campsite.png
+│   ├── catalog.eno
+│   ├── deploy.sh
+│   ├── drMorbius
+│   ├── eli
+│   ├── .faircamp_build
+│   ├── .faircamp_cache
+│   ├── robots.txt
+│   └── st33vTM
+├── forge
+│   ├── automationUseCase.txt
+│   ├── in
+│   ├── out
+│   ├── script
+│   └── template
+├── .git
+│   └─[redacted for clarity]
+└── sotd
+    ├── 2016-01-29-pluto
+    ├── 2026-01-29-devonian-dunkleosteus
+    ├── 2026-01-30-grouse
+    ├── 2026-01-30-llmtm
+    ├── catalog.eno
+    ├── .faircamp_build
+    ├── .faircamp_cache
+    └── sotd_cover.png
+
+The two static site are held in the two .faircamp_build directories
+
+rsync copies their contents to st33.com and st33v.com/sotd, respectively.
+
+BUT the base site know nothing of sotd, so the --delete directive deletes all of sotd.
+This is not what we want.
+
+Question: How can we protect sotd from the ravages of rsync?
+
+There is also a second question around the robots & sitemap generator. Are we allowed to have a robots.txt & sitemap.xml in sot as well?
+
+Or is there a more elegant way to include the entire /sotd path in th first script?
+
