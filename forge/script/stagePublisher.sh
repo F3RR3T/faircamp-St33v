@@ -9,8 +9,8 @@ SOTD_BUILD="$HOME/dox/st33v.com/sotd/.faircamp_build/"
 STAGE="$HOME/dox/st33v.com/stage"
 REMOTE="st33v@st33v.com:/srv/www/st33v.com/"  
 
-rm -rf "$STAGE"
-mkdir -p "$STAGE/sotd"
+# rm -rf "$STAGE"
+# mkdir -p "$STAGE/sotd"
 
 # materialize staging tree (real files)
 rsync -a --delete "$ROOT_BUILD" "$STAGE/"
