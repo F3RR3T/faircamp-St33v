@@ -20,6 +20,7 @@
 .faircamp_cache/
 forge/out/
 forge/in/
+stage/
 
 # OS/editor junk
 .vscode/
