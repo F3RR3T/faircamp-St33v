@@ -18,7 +18,8 @@ EOF
 # Include HTML pages + common content types; exclude obvious junk.
 # If you have multiple languages/hosts, we can expand later.
 tmp="$(mktemp)"
-find . -type f \( -name '*.html' -o -name '*.pdf' -o -name '*.mp3' -o -name '*.flac' \) \
+find . -type f \( -name '*.html' -o -name '*.pdf' \
+  -o -name '*.mp3' -o -name '*.flac' -o -name '*.opus' \) \
   ! -path './.git/*' ! -path './assets/*' ! -path './static/*' \
   -print0 \
 | sort -z \
