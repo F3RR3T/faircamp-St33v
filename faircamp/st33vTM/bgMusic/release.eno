@@ -1,0 +1,51 @@
+title: Background Music for busy People
+permalink: bgMusic
+date: 2025-10-25
+tags: 
+
+release_artist: St33v™
+
+release_downloads:
+- flac
+- opus
+- mp3
+
+m3u: disabled
+more_label: Liner Notes
+track_numbering: arabic-dotted
+
+cover:
+description = An anxious man in a crowded bus holds tightly onto a strap and stares at the viewer while other passengers stare at their phones.
+file = coverAnxiousMan.jpg
+
+-- synopsis
+A soothing yet engaging selection of Future Lounge music.
+-- synopsis
+
+-- more
+
+Too tired or busy to even decide what you’d like to listen to? Try this blend of smooth aural blancmange with an occasional crystal of fondant.
+
+This album introduces the *Future Lounge* genre: relaxing background music, fully machine-rendered, (mostly) untouched by human hands except for fine-tuning of lyrics, track selection and mastering. The tracks you hear have passed through a stringent process of iterative generation, refinement, selection, and compilation.
+
+May contain traces of irony or beauty.
+
+---
+
+## Credits
+
+All tracks and artwork were created by St33v using AI tools including ChatGPT and Suno. Some lyrics were hand-crafted (just like the old days) while others were combined human/machine efforts. The tracks that comprise this album were selected from hundreds of variations and mastered using Audacity for your listening pleasure.
+
+Concepts and lyrics by St33v™
+
+Post-production by St33v™
+-- more
+
+
+theme:
+accent_brightening = 85
+accent_chroma = 50
+accent_hue = 43
+base = light
+base_chroma = 77
+base_hue = 190
