@@ -20,6 +20,7 @@
 .faircamp_cache/
 forge/out/
 forge/in/
+forge/wait/
 stage/
 
 # OS/editor junk

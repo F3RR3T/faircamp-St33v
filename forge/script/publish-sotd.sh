@@ -1,17 +1,25 @@
 #!/usr/bin/env bash
 set -euo pipefail
+source /usr/local/bin/logNotify-lib
 
 ROOT="$HOME/dox/st33v.com"
 OUT="$ROOT/forge/out"
 SOTD="$ROOT/sotd"
 
-log() { printf '[sotd-publish] %s\n' "$*" >&2; }
-die() { log "$*"; exit 1; }
-
 publish_marker="$OUT/PUBLISH"
-[[ -f "$publish_marker" ]] || die "No publish marker: $publish_marker"
+consume_marker="$OUT/.PUBLISHING"
 
-# mkdir -p "$SOTD"
+if [[ -f "$consume_marker" ]]; then
+  log "Publish already in progress, exiting."
+  exit 0
+fi
+
+if [[ -f "$publish_marker" ]]; then
+  mv "$publish_marker" "$consume_marker"
+else
+  log "No PUBLISH marker, nothing to do."
+  exit 0
+fi
 
 # Find candidate release directories in OUT (ignore marker files)
 release_dirs=()
@@ -38,5 +46,6 @@ mv "$rel" "$dest"
 log "Published: $dest"
 
 # Cleanup markers after successful publish
-rm -f "$OUT/PUBLISH" "$OUT/BUILT"
+rm $OUT/BUILT
+trap 'rm -f "$consume_marker"' EXIT
 

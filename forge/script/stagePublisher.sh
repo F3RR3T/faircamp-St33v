@@ -3,6 +3,7 @@
 # 31 Jan 2026
 
 set -euo pipefail
+source /usr/local/bin/logNotify-lib
 
 ROOT_BUILD="$HOME/dox/st33v.com/faircamp/.faircamp_build/"
 SOTD_BUILD="$HOME/dox/st33v.com/sotd/.faircamp_build/"
@@ -20,5 +21,13 @@ rsync -a --delete "$SOTD_BUILD" "$STAGE/sotd/"
 gen-robots-sitemap.sh "$STAGE" "https://st33v.com"
 
 # publish atomically
-rsync -anv --delete "$STAGE/"/ "$REMOTE"
+rsync -a --delete "$STAGE/"/ "$REMOTE"
+
+log "Starting rsync stage → st33v.com"
+
+if rsync -a --delete "$STAGE/"/ "$REMOTE" 2>&1 | systemd-cat -t stagePublish then
+  log "rsync completed "
+else
+  die "rsync failed"
+fi
 

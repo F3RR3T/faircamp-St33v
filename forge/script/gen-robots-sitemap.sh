@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
+source /usr/local/bin/logNotify-lib
 
 OUT_DIR="${1:-.faircamp_build}"
 SITE_URL="${2:-https://st33v.com}"
@@ -44,6 +45,6 @@ find . -type f \( -name '*.html' -o -name '*.pdf' \
 
 rm -f "$tmp"
 
-echo "Wrote: $OUT_DIR/robots.txt"
-echo "Wrote: $OUT_DIR/sitemap.xml"
+notify "Wrote: $OUT_DIR/robots.txt"
+log "Wrote: $OUT_DIR/sitemap.xml"
 
