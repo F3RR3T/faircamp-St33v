@@ -4,6 +4,7 @@ source /usr/local/bin/logNotify-lib
 
 ROOT="$HOME/dox/st33v.com"
 OUT="$ROOT/forge/out"
+TEMPLATE="$ROOT/forge/template"
 SOTD="$ROOT/sotd"
 
 publish_marker="$OUT/PUBLISH"
@@ -47,5 +48,6 @@ log "Published: $dest"
 
 # Cleanup markers after successful publish
 rm $OUT/BUILT
+rm $TEMPLATE/lyrics $TEMPLATE/title
 trap 'rm -f "$consume_marker"' EXIT
 

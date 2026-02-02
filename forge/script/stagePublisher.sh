@@ -25,9 +25,7 @@ rsync -a --delete "$STAGE/"/ "$REMOTE"
 
 log "Starting rsync stage → st33v.com"
 
-if rsync -a --delete "$STAGE/"/ "$REMOTE" 2>&1 | systemd-cat -t stagePublish then
-  log "rsync completed "
-else
-  die "rsync failed"
-fi
+out="$(rsync -a --delete --stats --human-readable "$STAGE/"/ "$REMOTE" 2>&1)" || die "rsync failed"
+summary="$(printf '%s\n' "$out" | awk '/sent .* bytes/ || /Total transferred file size:/ || /Number of deleted files:/ {print}')"
+log "rsync summary: $(printf '%s' "$summary" | paste -sd ' | ' -)"
 
