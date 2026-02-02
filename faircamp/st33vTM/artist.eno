@@ -1,12 +1,16 @@
 name: St33v™
 permalink: st33v
 
+image:
+description = A strangely surreal cretacious landscape featuring a lone pteranodon
+file = st33vPteranodon.png
+
 link:
 label = St33v™
 url = http://st33v.com
 
 link:
-label = Youtube
+label = Youtube: Music, farming and extreme mowing
 url = https://www.youtube.com/@St33v33
 
 

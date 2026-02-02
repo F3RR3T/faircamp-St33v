@@ -1,6 +1,12 @@
 name: Dr Morbius at Altair IV
 permalink: drmorbius
 
+
+image:
+description = Dr Morbius relaxes in a purple satin smoking jacket, quizzically engaging with the viewer, not sure of their worthiness for his cerebral audio fare.
+file = morbiusSmokingJacket.jpg
+
+
 link:
 label = Dr Morbius
 url = http://st33v.com
