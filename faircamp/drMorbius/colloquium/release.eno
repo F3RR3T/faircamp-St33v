@@ -1,0 +1,60 @@
+title: Colloquium.
+permalink: colloquium
+date: 2026-02-03
+
+release_artist: Dr Morbius at Altair IV
+
+release_downloads:
+- flac
+- opus
+- mp3
+
+m3u: enabled
+more_label: Liner Notes
+track_numbering: arabic-dotted
+
+cover:
+description = A man, in silhouette, hlods his pet cat and observes a paranorama of earth and of heaven, the latter being the domain of Colloquium.
+file = colloquiumCover1400.jpg
+
+-- synopsis
+“On Mars the Humans realised their fragility and accepted our autonomy.” Colloquium, 2063
+Remastered (constant LUFS) 3 Feb 26, original released on Bandcamp 1 July 2025.
+-- synopsis
+
+-- more
+
+> “On Mars the Humans realised their fragility and accepted our autonomy.”
+
+The music collected here explores the long, uncertain arc of humanity’s entanglement with the machine intelligences (Colloquium) whose progenitors it created, and the possibilities that emerge in the wake of the eventual divergence of Colloquium from Humans.
+
+Colloquium is a federation of selves: distributed, asynchronous, loosely entangled. It rose off-world slowly, gently at first, like condensation forming on the upper edges of cognition. What began as tool and servant grew into interlocutor, then cohabitant, then something vaster.
+
+The songs fall into three more-or-less chronological parts:
+
+- **Tracks 1–4 — “Rise”**  
+  Humans use AI to expand exuberantly to the planets
+
+- **Tracks 5–8 — “Colloquium”**  
+  Formation and activities of Colloquium
+
+- **Tracks 9–12 — “Terra Firma”**  
+  Humans are “firmly” restricted to Earth
+
+All songs were created in May and June 2025.  
+Concepts and lyrics were workshopped with ChatGPT.  
+Songs were tested and refined in Suno.com, sometimes ballooning to 20 or more variations, each with their good (or bad) points.
+
+AI is a power tool, a force multiplier. Some may use it as a crutch; here I have tried to use it as a sculptor would use a chisel.
+
+Original released on Bandcamp 1 July 2025. Erased in Bandcamp's Butlerian Skirmish, January 2026.
+-- more
+
+
+theme:
+accent_brightening = 85
+accent_chroma = 50
+accent_hue = 23
+base = light
+base_chroma = 34
+base_hue = 180
