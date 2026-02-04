@@ -51,13 +51,13 @@ lyrics_md=""
 if [[ -f "$TPL/lyrics" ]]; then
   has_lyrics=true
   lyrics_md="$(sed 's/$/  /' "$TPL/lyrics")" # add two spaces to force markdown newline
-  export LYRICS_MD="${lyrics_md//$'\r'/}"   # strip windows CR if present
+  lyrics_md="${lyrics_md//$'\r'/}"   # strip windows CR if present
 fi
 
 # synopsis: first ~3 lines, <256 chars, joined by " / "
 synopsis=""
 if $has_lyrics; then
-  synopsis="$(head -n 3 "$TPL/lyrics" \
+  synopsis="$(head -n 3 $lyrics_md \
     | tr '\n' '/' \
     | sed 's|/| / |g' \
     | cut -c1-255)"
@@ -79,7 +79,7 @@ export DATE_TODAY="$date_today"
 export COVER_ART_FILE="$coverArtFile"
 export COVER_DESC="$cover_desc"
 export SYNOPSIS="$synopsis"
-# export LYRICS_MD="$lyrics_md"
+export LYRICS_MD="$lyrics_md"
 
 perl -0777 -pe '
   s/\{\{title\}\}/$ENV{TITLE}/g;
