@@ -57,7 +57,7 @@ fi
 # synopsis: first ~3 lines, <256 chars, joined by " / "
 synopsis=""
 if $has_lyrics; then
-  synopsis="$(head -n 3 $lyrics_md \
+  synopsis="$(head -n 3 <<< "$lyrics_md" \
     | tr '\n' '/' \
     | sed 's|/| / |g' \
     | cut -c1-255)"
