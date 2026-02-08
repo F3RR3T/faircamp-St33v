@@ -98,7 +98,7 @@ mv "${wav[0]}" "$release_dir/"
 mv -- "$TPL/$coverArtFile" "$release_dir/$coverArtFile"
 
 # marker to show build complete
-touch "$release_dir/BUILT"
+touch "$OUT/BUILT"
 
 log "[sotd-build] Built $release_dir"
 

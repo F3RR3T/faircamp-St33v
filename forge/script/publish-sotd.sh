@@ -8,7 +8,7 @@ TEMPLATE="$ROOT/forge/template"
 SOTD="$ROOT/sotd"
 
 publish_marker="$OUT/PUBLISH"
-consume_marker="$OUT/.PUBLISHING"
+consume_marker="$OUT/PUBLISHING"
 
 if [[ -f "$consume_marker" ]]; then
   log "Publish already in progress, exiting."
