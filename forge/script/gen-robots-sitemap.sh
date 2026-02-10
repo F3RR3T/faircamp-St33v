@@ -17,7 +17,6 @@ EOF
 
 # --- sitemap.xml ---
 # Include HTML pages + common content types; exclude obvious junk.
-# If you have multiple languages/hosts, we can expand later.
 tmp="$(mktemp)"
 find . -type f \( -name '*.html' -o -name '*.pdf' \
   -o -name '*.mp3' -o -name '*.flac' -o -name '*.opus' \) \
@@ -45,6 +44,5 @@ find . -type f \( -name '*.html' -o -name '*.pdf' \
 
 rm -f "$tmp"
 
-notify "Wrote: $OUT_DIR/robots.txt"
+#notify "Wrote: $OUT_DIR/robots.txt"
 log "Wrote: $OUT_DIR/sitemap.xml"
-
