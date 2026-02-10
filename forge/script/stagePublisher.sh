@@ -21,9 +21,8 @@ rsync -a --delete "$SOTD_BUILD" "$STAGE/sotd/"
 gen-robots-sitemap.sh "$STAGE" "https://st33v.com"
 
 # publish atomically
-rsync -a --delete "$STAGE/"/ "$REMOTE"
-
 log "Starting rsync stage → st33v.com"
+rsync -a --delete "$STAGE/"/ "$REMOTE"
 
 out="$(rsync -a --delete --stats --human-readable "$STAGE/"/ "$REMOTE" 2>&1)" || die "rsync failed"
 summary="$(printf '%s\n' "$out" | awk '/sent .* bytes/ || /Total transferred file size:/ || /Number of deleted files:/ {print}')"
