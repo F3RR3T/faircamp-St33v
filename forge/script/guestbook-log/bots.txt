@@ -1,0 +1,16 @@
+# One regex per line, case-insensitive
+bot
+spider
+crawler
+scan
+curl
+wget
+python-requests
+httpclient
+go-http-client
+java/
+libwww-perl
+scrapy
+facebookexternalhit
+pingdom
+uptimerobot
