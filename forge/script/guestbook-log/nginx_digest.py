@@ -103,7 +103,7 @@ def main():
     args = parse_args()
     logs = args.log or ["/var/log/nginx/access.log", "/var/log/nginx/access.log.1"]
     bots_path = args.bots or "/opt/nginx-digest/bots.txt"
-    outdir = args.outdir or "/var/lib/nginx-digest/daily"
+    outdir = args.outdir or "/home/st33v/nginx-digest/daily"
 
     day, start_utc, end_utc = date_range_utc(args.date)
     bot_patterns = load_bots(bots_path)

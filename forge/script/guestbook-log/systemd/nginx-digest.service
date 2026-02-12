@@ -6,4 +6,4 @@ Wants=network-online.target
 [Service]
 Type=oneshot
 ExecStart=/opt/nginx-digest/send_report.sh
-EnvironmentFile=-/etc/nginx-digest.conf
+EnvironmentFile=-/etc/nginx/nginx-digest.conf

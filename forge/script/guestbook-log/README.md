@@ -4,11 +4,11 @@ Generate a daily UTC markdown digest from nginx access logs and email it via msm
 
 ## Install layout (remote server)
 - Code: `/opt/nginx-digest/` (this repo)
-- Reports: `/var/lib/nginx-digest/daily/`
+- Reports: `/home/st33v/nginx-digest/daily/`
 - Systemd units: `/etc/systemd/system/`
 
 ## Configuration
-Create `/etc/nginx-digest.conf`:
+Create `/etc/nginx/nginx-digest.conf`:
 
 ```bash
 RECIPIENT="you@yourdomain"
@@ -50,7 +50,7 @@ Run locally on the server:
 
 ```bash
 /opt/nginx-digest/nginx_digest.py
-cat /var/lib/nginx-digest/daily/$(date -u -d "yesterday" +%F).md
+cat /home/st33v/nginx-digest/daily/$(date -u -d "yesterday" +%F).md
 /opt/nginx-digest/send_report.sh
 ```
 

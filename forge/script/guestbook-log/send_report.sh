@@ -3,7 +3,7 @@ set -euo pipefail
 
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-CONF_FILE="/etc/nginx-digest.conf"
+CONF_FILE="/etc/nginx/nginx-digest.conf"
 if [[ -f "$CONF_FILE" ]]; then
   # shellcheck source=/etc/nginx-digest.conf
   source "$CONF_FILE"
