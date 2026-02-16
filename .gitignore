@@ -22,6 +22,8 @@ forge/out/
 forge/in/
 forge/wait/
 stage/
+forge/template/*
+!forge/template/release.template
 
 # OS/editor junk
 .vscode/
