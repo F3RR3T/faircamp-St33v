@@ -1,4 +1,4 @@
-title: St33v™ Records
+title: St33v™ Recording Studio
 base_url: https://st33v.com
 language: en
 
@@ -13,12 +13,56 @@ description = The St33v Label Background.
 file = campsite.png 
 
 -- synopsis
-St33v™ Recording Studio is proud to work with such a varied crew of talented Artists!
+St33v™ Recording Studio is proud to work with such a varied crew of talented Artists! We bring fresh AI and old-school Analogue music to your ears.
 -- synopsis
 
 more_label: About St33v™
 --more
-Add some information about the St33v™ label and the music on the site.
+
+
+St33v is an independent Australian musician and systems builder working across modular synthesis, conceptual albums, and machine collaboration.
+
+This site is self-hosted and generated from a custom Arch Linux workflow using Faircamp and plain files. No rented platforms. RSS is first-class. The stack is part of the statement.
+
+---
+
+## The Music
+
+Releases range from single-take modular improvisations to structured concept cycles.
+
+Themes recur: metamodern oscillation, solastalgia, technological agency, cognition, and the uneasy dance between humans and increasingly capable machines.
+
+The stance is clear-eyed: pro-AI, not utopian.
+See *Power Scalpel* and *Build a Bridge*.
+
+---
+
+## The Personae
+
+### Eli Mercer
+
+Singer-songwriter navigating irony and sincerity in equal measure. Cultural drift, philosophy, and the digital condition filtered through melody.
+
+### Dr Morbius
+
+Speculative technologist. Explorer of Krellian aesthetics, synthetic consciousness, and CantoTopometry. A narrative instrument for thinking about advanced systems.
+
+### St33v™
+
+Engineer, instigator, release valve. The playful and the peculiar. Whatever the others leave on the table.
+
+---
+
+## Why
+
+Ownership of tools.
+Ownership of distribution.
+Curiosity without guardrails.
+Alignment without dogma.
+
+Music and systems thinking are not separate disciplines.
+
+This is an ongoing project.
 --more
 
 feeds: all
