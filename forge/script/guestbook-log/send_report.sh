@@ -16,6 +16,17 @@ REPORT_PATH="$(python3 "$DIR/nginx_digest.py")"
 REPORT_DATE="$(basename "$REPORT_PATH" .md)"
 SUBJECT_PREFIX="${SUBJECT_PREFIX:-nginx digest}"
 SUBJECT="$SUBJECT_PREFIX $REPORT_DATE UTC"
+MSMTP_BIN="${MSMTP_BIN:-msmtp}"
+
+if ! command -v "$MSMTP_BIN" >/dev/null 2>&1; then
+  echo "msmtp binary not found: $MSMTP_BIN" >&2
+  exit 1
+fi
+
+MSMTP_ARGS=(-t)
+if [[ -n "${MSMTP_CONFIG:-}" ]]; then
+  MSMTP_ARGS=(--file "$MSMTP_CONFIG" -t)
+fi
 
 {
   printf 'From: %s\n' "$SENDER"
@@ -23,4 +34,4 @@ SUBJECT="$SUBJECT_PREFIX $REPORT_DATE UTC"
   printf 'Subject: %s\n' "$SUBJECT"
   printf '\n'
   cat "$REPORT_PATH"
-} | msmtp -t
+} | "$MSMTP_BIN" "${MSMTP_ARGS[@]}"

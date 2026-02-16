@@ -5,5 +5,9 @@ Wants=network-online.target
 
 [Service]
 Type=oneshot
-ExecStart=/opt/nginx-digest/send_report.sh
+User=st33v
+Group=st33v
+WorkingDirectory=/opt/nginx-digest
+Environment=HOME=/home/st33v
 EnvironmentFile=-/etc/nginx/nginx-digest.conf
+ExecStart=/usr/bin/env bash /opt/nginx-digest/send_report.sh
