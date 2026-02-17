@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>404 | Not Found</title>
+  <style>
+    :root {
+      --text: #f6f7fb;
+      --muted: #d2d8e6;
+      --glow: rgba(128, 196, 255, 0.9);
+      --edge: rgba(255, 255, 255, 0.2);
+      --scrim-top: rgba(3, 6, 16, 0.18);
+      --scrim-bottom: rgba(3, 6, 16, 0.84);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+    }
+
+    body {
+      position: relative;
+      overflow: hidden;
+      background: #030610;
+      color: var(--text);
+      font-family: "Barlow", "Segoe UI", Tahoma, sans-serif;
+    }
+
+    .bg {
+      position: fixed;
+      inset: 0;
+      background-image: url('/_error/assets/404-triptych-wall.png');
+      background-size: 100% auto;
+      background-position: center;
+      background-repeat: no-repeat;
+      z-index: 0;
+    }
+
+    .bg::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, var(--scrim-top) 0%, var(--scrim-top) 42%, rgba(3, 6, 16, 0.35) 64%, var(--scrim-bottom) 100%);
+    }
+
+    .overlay {
+      position: relative;
+      z-index: 3;
+      min-height: 100vh;
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: max(1rem, env(safe-area-inset-top)) 1rem calc(1rem + env(safe-area-inset-bottom));
+      gap: 1rem;
+      pointer-events: none;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    p {
+      margin: 0;
+      max-width: 58ch;
+      font-size: clamp(0.95rem, 1.35vw, 1.1rem);
+      line-height: 1.45;
+      text-wrap: balance;
+    }
+
+    .top-copy {
+      align-self: center;
+      text-align: center;
+      padding-top: 0.25rem;
+      max-width: 60ch;
+    }
+
+    .bottom-controls {
+      display: grid;
+      gap: 0.8rem;
+      width: min(1100px, 100%);
+      margin: 0 auto;
+    }
+
+    .plaque-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.75rem;
+      pointer-events: auto;
+    }
+
+    .plaque-row a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 2.75rem;
+      padding: 0.4rem 0.6rem;
+      color: var(--text);
+      text-decoration: none;
+      text-align: center;
+      font-size: clamp(0.78rem, 1.2vw, 0.95rem);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      border: 1px solid rgba(188, 225, 255, 0.56);
+      border-radius: 0.5rem;
+      background: linear-gradient(180deg, rgba(14, 22, 42, 0.82), rgba(8, 13, 26, 0.88));
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.32), inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+      transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+    }
+
+    .plaque-row a:hover,
+    .plaque-row a:focus-visible {
+      transform: translateY(-1px);
+      border-color: rgba(214, 238, 255, 0.95);
+      box-shadow: 0 0 0 2px rgba(92, 164, 218, 0.28), 0 14px 28px rgba(0, 0, 0, 0.38);
+      outline: none;
+    }
+
+    .button-row {
+      display: flex;
+      justify-content: center;
+      gap: 0.75rem;
+      pointer-events: auto;
+    }
+
+    .button-row a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 2.35rem;
+      padding: 0 0.95rem;
+      border: 1px solid var(--edge);
+      border-radius: 999px;
+      color: var(--text);
+      text-decoration: none;
+      background: rgba(8, 12, 26, 0.58);
+      backdrop-filter: blur(2px);
+      transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
+    }
+
+    .button-row a:hover,
+    .button-row a:focus-visible {
+      transform: translateY(-1px);
+      border-color: rgba(185, 224, 255, 0.95);
+      box-shadow: 0 0 0 2px rgba(92, 164, 218, 0.26), 0 8px 24px rgba(0, 0, 0, 0.28);
+      background: rgba(10, 16, 34, 0.72);
+      outline: none;
+    }
+
+    .zone-layer {
+      position: fixed;
+      inset: 0;
+      z-index: 2;
+    }
+
+    .zone {
+      position: absolute;
+      display: block;
+      pointer-events: auto;
+      text-decoration: none;
+      outline: none;
+    }
+
+    .zone::before {
+      content: "";
+      position: absolute;
+      inset: 0.35rem;
+      border-radius: 0.75rem;
+      border: 1px solid transparent;
+      box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+      transform: scale(1);
+      transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease, background-color 220ms ease;
+    }
+
+    .zone:hover::before,
+    .zone:focus-visible::before {
+      border-color: rgba(202, 234, 255, 0.92);
+      box-shadow: 0 0 0 3px rgba(95, 177, 232, 0.45), 0 0 34px 8px rgba(64, 143, 196, 0.25), inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+      background-color: rgba(11, 20, 39, 0.1);
+      transform: scale(1.01);
+    }
+
+    .zone:focus-visible {
+      outline: 3px solid rgba(176, 226, 255, 0.95);
+      outline-offset: -3px;
+    }
+
+    .zone-eli {
+      left: 0;
+      top: 0;
+      width: 33.4%;
+      height: 100%;
+    }
+
+    .zone-st33v {
+      left: 33.3%;
+      top: 0;
+      width: 33.4%;
+      height: 100%;
+    }
+
+    .zone-morbius {
+      right: 0;
+      top: 0;
+      width: 33.4%;
+      height: 100%;
+    }
+
+    .zone-sotd {
+      left: 58%;
+      top: 17%;
+      width: clamp(5rem, 10vw, 8.5rem);
+      aspect-ratio: 1 / 1;
+      border-radius: 999px;
+    }
+
+    .zone-sotd::after {
+      content: attr(data-label);
+      position: absolute;
+      top: -2.05rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(0.18rem);
+      white-space: nowrap;
+      font-size: 0.74rem;
+      letter-spacing: 0.02em;
+      color: var(--text);
+      background: rgba(9, 13, 28, 0.86);
+      border: 1px solid rgba(196, 226, 255, 0.48);
+      border-radius: 999px;
+      padding: 0.28rem 0.58rem;
+      opacity: 0;
+      transition: opacity 180ms ease, transform 180ms ease;
+      pointer-events: none;
+    }
+
+    .zone-sotd:hover::after,
+    .zone-sotd:focus-visible::after {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    @media (max-width: 800px) {
+      .overlay {
+        padding-top: calc(0.8rem + env(safe-area-inset-top));
+        padding-bottom: calc(0.9rem + env(safe-area-inset-bottom));
+      }
+
+      .top-copy {
+        max-width: 92%;
+      }
+
+      .plaque-row {
+        gap: 0.45rem;
+      }
+
+      .plaque-row a {
+        min-height: 2.35rem;
+        font-size: 0.7rem;
+        letter-spacing: 0.02em;
+      }
+
+      .zone-sotd {
+        left: 54%;
+        top: 21%;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg" aria-hidden="true"></div>
+
+  <div class="zone-layer">
+    <a class="zone zone-eli" href="/eli/" aria-label="Go to Eli"></a>
+    <a class="zone zone-st33v" href="/st33v/" aria-label="Go to st33v"></a>
+    <a class="zone zone-morbius" href="/drmorbius/" aria-label="Go to drmorbius"></a>
+    <a class="zone zone-sotd" href="/sotd/" data-label="Egg -> SOTD" aria-label="Open Song of the Day"></a>
+  </div>
+
+  <main class="overlay">
+    <div class="top-copy">
+      <h1>404</h1>
+      <p>That Oscillation was out of phase.</p>
+    </div>
+
+    <div class="bottom-controls">
+      <div class="plaque-row">
+        <a href="/eli/">Eli Mercer</a>
+        <a href="/st33v/">St33v&#8482;</a>
+        <a href="/drmorbius/">Dr Morbius on Altair IV</a>
+      </div>
+      <div class="button-row">
+        <a href="/">Home</a>
+        <a href="/sotd/">SOTD</a>
+      </div>
+    </div>
+  </main>
+</body>
+</html>
