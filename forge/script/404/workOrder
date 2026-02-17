@@ -1,0 +1,101 @@
+Codex work order (copy/paste)
+1) Goals
+
+Build a custom 404.html that:
+
+Shows a full-bleed cinematic triptych background image (1920×1080).
+
+Provides 4 interactive “portals”:
+
+Left panel: Eli → /eli/
+
+Middle panel: St33v™ → /st33vTM/
+
+Right panel: Dr Morbius → /drMorbius/
+
+A smaller “egg / note” hotspot (or button) → /sotd/
+
+Provides a plain “Back to Home” link → /
+
+Works on mobile and desktop.
+
+Keyboard accessible (tab to each portal, visible focus ring).
+
+Respects prefers-reduced-motion.
+
+2) HTML structure
+
+body full viewport, background image via <div class="bg">.
+
+A <main class="overlay"> with:
+
+A small title: 404
+
+A one-liner: “This path doesn’t exist, but the universe does.”
+
+Buttons row: Home + SOTD (text buttons)
+
+Three big invisible <a class="zone zone-eli">, .zone-st33v, .zone-morbius positioned over the left/middle/right third of the image.
+
+One smaller <a class="zone zone-sotd"> positioned over the “egg” area (middle panel, upper-right-ish), plus a label tooltip on hover/focus.
+
+3) CSS behavior
+
+Use background-image: url('/assets/404-triptych-wall.png'); (absolute path).
+
+Add subtle hover/focus:
+
+outline glow + mild zoom (transform: scale(1.01)) on the hovered zone via a pseudo-element.
+
+Tooltip label appears on hover/focus (pure CSS).
+
+Ensure readability of overlay text with a bottom gradient scrim.
+
+4) Minimal JS (optional)
+
+Not required. If used, only for:
+
+Dynamically set the “requested path” text (optional), pulled from location.pathname and escaped.
+
+Otherwise skip JS.
+
+5) README instructions
+
+Include:
+
+Where to put 404.html, css/js, and assets/ in the deployed site root.
+
+Nginx snippet:
+
+error_page 404 /404.html;
+
+location = /404.html {
+    # internal;   # enable if you want it only as an error handler
+}
+
+
+Dotfile denial:
+
+location ~ /\.(env|git|ht) {
+    deny all;
+}
+
+
+Optional caching for static assets (fonts/images/css/js):
+
+location ~* \.(png|jpg|jpeg|gif|woff2|css|js)$ {
+    expires 30d;
+    add_header Cache-Control "public, max-age=2592000, immutable";
+}
+
+6) Link targets (hardcode)
+
+/eli/
+
+/st33vTM/
+
+/drMorbius/
+
+/sotd/
+
+/
