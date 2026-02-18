@@ -5,7 +5,7 @@ import os
 import re
 import sys
 from collections import Counter, defaultdict
-from urllib.parse import urlparse
+from urllib.parse import unquote, urlparse
 
 
 LOG_RE = re.compile(
@@ -18,6 +18,7 @@ AUDIO_EXTS = {".mp3", ".ogg", ".opus", ".m4a", ".flac", ".wav", ".aac"}
 ASSET_EXTS = {
     ".css", ".js", ".png", ".jpg", ".jpeg", ".gif", ".svg", ".ico",
     ".webp", ".avif", ".mp4", ".webm", ".pdf", ".zip", ".tar", ".gz",
+    ".woff", ".woff2", ".ttf", ".otf", ".eot",
 }
 
 
@@ -74,6 +75,48 @@ def path_no_query(path):
         return path
 
 
+def canonical_track_rollup(path):
+    parts = [p for p in path_no_query(path).split("/") if p]
+    if not parts:
+        return None
+
+    if parts[0] == "sotd":
+        # /sotd/<album_slug>/<track>/<anything...>/<song_file_name>
+        if len(parts) < 4:
+            return None
+        album = "sotd"
+        track = parts[2]
+        song_file_name = parts[-1]
+    else:
+        # /<album_slug>/<track>/<anything...>/<song_file_name>
+        if len(parts) < 3:
+            return None
+        album = parts[0]
+        track = parts[1]
+        song_file_name = parts[-1]
+
+    ext = os.path.splitext(song_file_name.lower())[1]
+    if ext not in AUDIO_EXTS:
+        return None
+    if not track:
+        return None
+
+    track_name = unquote(os.path.splitext(song_file_name)[0])
+    return album, track_name
+
+
+def _selftest_canonical_track_rollup():
+    # Tiny examples:
+    # 1) format/hash + codec/ext variants collapse to one key
+    # 2) non-audio requests are ignored
+    a = "/sotd/2026-02-16-goldenbraidneuralfire/1/mp3-v5/XYZ/01%20goldenBraid.mp3"
+    b = "/sotd/2026-02-16-goldenbraidneuralfire/1/opus-96/ABC/01%20goldenBraid.opus"
+    expected = ("sotd", "01 goldenBraid")
+    assert canonical_track_rollup(a) == expected
+    assert canonical_track_rollup(b) == expected
+    assert canonical_track_rollup("/my-album/1/cover.jpg") is None
+
+
 def parse_time(ts):
     # Example: 10/Oct/2000:13:55:36 -0700
     return dt.datetime.strptime(ts, "%d/%b/%Y:%H:%M:%S %z")
@@ -113,6 +156,8 @@ def main():
     page_views = Counter()
     plays = Counter()
     play_bytes = defaultdict(int)
+    track_counts = Counter()
+    track_bytes = defaultdict(int)
     referrers = Counter()
     bot_uas = Counter()
     not_found = Counter()
@@ -165,6 +210,10 @@ def main():
             plays[key] += 1
             if bytes_sent > play_bytes[key]:
                 play_bytes[key] = bytes_sent
+            track_key = canonical_track_rollup(path)
+            if track_key:
+                track_counts[track_key] += 1
+                track_bytes[track_key] += bytes_sent
         elif method == "GET" and status == 200:
             page_views[path] += 1
 
@@ -174,14 +223,6 @@ def main():
     unique_visitors = len(visitors)
     total_page_views = sum(page_views.values())
     total_plays = len(plays)
-
-    # Aggregate plays by track path (unique plays per visitor/UA/path)
-    track_counts = Counter()
-    track_bytes = defaultdict(int)
-    for (_, _, path), _cnt in plays.items():
-        track_counts[path] += 1
-    for (_ip, _ua, path), b in play_bytes.items():
-        track_bytes[path] += b
 
     report_lines = []
     report_lines.append(f"# Nginx Digest {day.isoformat()} (UTC)")
@@ -195,9 +236,15 @@ def main():
 
     report_lines.append("## Top 10 Tracks (by plays)")
     if track_counts:
-        for path, cnt in track_counts.most_common(10):
-            b = track_bytes.get(path, 0)
-            report_lines.append(f"- {path} — {cnt} plays, {b} bytes")
+        top_tracks = sorted(
+            track_counts.items(),
+            key=lambda kv: (-kv[1], -track_bytes.get(kv[0], 0), kv[0]),
+        )[:10]
+        for idx, (track_key, cnt) in enumerate(top_tracks, start=1):
+            b = track_bytes.get(track_key, 0)
+            kb = b / 1024.0
+            album, track_name = track_key
+            report_lines.append(f"{idx}. {album} / {track_name} — {cnt} plays, {kb:.1f} kB")
     else:
         report_lines.append("- None")
     report_lines.append("")
@@ -243,4 +290,6 @@ def main():
 
 
 if __name__ == "__main__":
+    if os.environ.get("NGINX_DIGEST_SELFTEST") == "1":
+        _selftest_canonical_track_rollup()
     main()
