@@ -24,7 +24,8 @@ gen-robots-sitemap.sh "$STAGE" "https://st33v.com"
 log "Starting rsync stage → st33v.com"
 rsync -a --delete "$STAGE/"/ "$REMOTE"
 
-out="$(rsync -a --delete --stats --human-readable "$STAGE/"/ "$REMOTE" 2>&1)" || die "rsync failed"
+out="$(rsync -aP --delete --stats --human-readable -e 'ssh -p 40022' \
+   "$STAGE/"/ "$REMOTE" 2>&1)" || die "rsync failed"
 summary="$(printf '%s\n' "$out" | awk '/sent .* bytes/ || /Total transferred file size:/ || /Number of deleted files:/ {print}')"
 log "rsync summary: $(printf '%s' "$summary" | paste -sd ' | ' -)"
 
