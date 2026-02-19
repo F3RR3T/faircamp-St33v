@@ -8,6 +8,7 @@ FORGE="$ROOT/forge"
 IN="$FORGE/in"
 OUT="$FORGE/out"
 TPL="$FORGE/template"
+WAIT="$FORGE/wait"
 shopt -s nullglob
 cover_files=( "$TPL"/*.jpg "$TPL"/*.png )
 shopt -u nullglob
@@ -35,6 +36,29 @@ slugify() {
   printf '%s' "$ascii" \
     | tr '[:upper:]' '[:lower:]' \
     | sed -E 's/[^a-z0-9]+//g'
+}
+
+convert_png_to_jpg() {
+  local src_png="$1"
+  local src_base dst_jpg archived_png
+
+  src_base="$(basename "$src_png")"
+  dst_jpg="${src_png%.*}.jpg"
+  archived_png="$WAIT/$src_base"
+
+  mkdir -p "$WAIT"
+  mv -- "$src_png" "$archived_png"
+
+  if command -v magick >/dev/null 2>&1; then
+    magick "$archived_png" -strip -interlace Plane -quality 85 "$dst_jpg"
+  elif command -v convert >/dev/null 2>&1; then
+    convert "$archived_png" -strip -interlace Plane -quality 85 "$dst_jpg"
+  else
+    die "ImageMagick not found (need 'magick' or 'convert' to convert PNG cover art)"
+  fi
+
+  log "Archived original PNG to $WAIT/$src_base and converted to $(basename "$dst_jpg")"
+  printf '%s\n' "$(basename "$dst_jpg")"
 }
 
 title="$(cat "$TPL/title")"
@@ -69,6 +93,9 @@ elif (( ${#cover_files[@]} > 1 )); then
   die "Multiple cover images found in template/: ${cover_files[*]}"
 fi
 coverArtFile="$(basename "${cover_files[0]}")"
+if [[ "$coverArtFile" == *.png ]]; then
+  coverArtFile="$(convert_png_to_jpg "$TPL/$coverArtFile")"
+fi
 log "cover art filename is $coverArtFile"
 cover_desc=$(printf 'Cover image, %s, for the song %s' "${coverArtFile%.*}"  "$title")
 
@@ -101,4 +128,3 @@ mv -- "$TPL/$coverArtFile" "$release_dir/$coverArtFile"
 touch "$OUT/BUILT"
 
 log "[sotd-build] Built $release_dir"
-
