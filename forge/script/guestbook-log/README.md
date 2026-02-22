@@ -29,8 +29,8 @@ $remote_addr - $remote_user [$time_local] "$request" $status $body_bytes_sent "$
 ```
 
 Input files:
-- `/var/log/nginx/access.log`
-- Optional rotated `/var/log/nginx/access.log.1`
+- Auto-discovered from `/var/log/nginx/access.log*` (includes common rotated and `.gz` files)
+- You can still pass explicit `--log` paths when running `nginx_digest.py` manually
 
 ### Arch Linux note (log permissions)
 If nginx logs are owned like `http:root` with mode `640`, the `st33v` service user cannot read them by default.

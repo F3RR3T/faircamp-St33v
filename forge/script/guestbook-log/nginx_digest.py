@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 import argparse
 import datetime as dt
+import glob
+import gzip
 import os
 import re
 import sys
@@ -137,14 +139,20 @@ def iter_logs(paths):
     for path in paths:
         if not path or not os.path.exists(path):
             continue
-        with open(path, "r", encoding="utf-8", errors="replace") as f:
+        opener = gzip.open if path.endswith(".gz") else open
+        with opener(path, "rt", encoding="utf-8", errors="replace") as f:
             for line in f:
                 yield line.rstrip("\n")
+
+def default_logs():
+    # Include common rotated variants to avoid empty reports after logrotate.
+    candidates = sorted(set(glob.glob("/var/log/nginx/access.log*")))
+    return candidates or ["/var/log/nginx/access.log", "/var/log/nginx/access.log.1"]
 
 
 def main():
     args = parse_args()
-    logs = args.log or ["/var/log/nginx/access.log", "/var/log/nginx/access.log.1"]
+    logs = args.log or default_logs()
     bots_path = args.bots or "/opt/nginx-digest/bots.txt"
     outdir = args.outdir or "/home/st33v/nginx-digest/daily"
 
