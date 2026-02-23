@@ -36,9 +36,9 @@ rel="${release_dirs[0]}"
 [[ -f "$rel/release.eno" ]] || die "Missing release.eno in $(basename "$rel")"
 
 shopt -s nullglob
-wav_files=( "$rel"/*.wav )
+audio_files=( "$rel"/*.flac "$rel"/*.wav )
 shopt -u nullglob
-(( ${#wav_files[@]} > 0 )) || die "Missing .wav in $(basename "$rel")"
+(( ${#audio_files[@]} > 0 )) || die "Missing audio file (.flac or .wav) in $(basename "$rel")"
 
 dest="$SOTD/$(basename "$rel")"
 [[ ! -e "$dest" ]] || die "Destination already exists: $dest"
@@ -50,4 +50,3 @@ log "Published: $dest"
 rm $OUT/BUILT
 rm $TEMPLATE/lyrics $TEMPLATE/title
 trap 'rm -f "$consume_marker"' EXIT
-

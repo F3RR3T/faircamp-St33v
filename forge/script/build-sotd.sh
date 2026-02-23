@@ -9,6 +9,10 @@ IN="$FORGE/in"
 OUT="$FORGE/out"
 TPL="$FORGE/template"
 WAIT="$FORGE/wait"
+RAW="$FORGE/rawAudio"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+MASTER_AUDIO="$SCRIPT_DIR/master_sotd_audio.sh"
+
 shopt -s nullglob
 cover_files=( "$TPL"/*.jpg "$TPL"/*.png )
 shopt -u nullglob
@@ -21,6 +25,7 @@ wav=( "$IN"/*.wav )
 [[ -e "${wav[0]}" ]] || die "No wav file in forge/in"
 [[ ${#wav[@]} -eq 1 ]] || die "More than one wav in forge/in (ambiguous)"
 [[ -f "$TPL/title" ]] || die "template/title missing"
+[[ -x "$MASTER_AUDIO" ]] || die "master_sotd_audio.sh missing or not executable: $MASTER_AUDIO"
 
 template_file="$TPL/release.template"
 [[ -f "$template_file" ]] || die "release.template missing"
@@ -68,6 +73,10 @@ slug="$date_today-$slug_title"
 
 release_dir="$OUT/$slug"
 mkdir -p "$release_dir"
+
+input_wav="${wav[0]}"
+input_base="$(basename "$input_wav" .wav)"
+mastered_flac="$release_dir/$input_base.flac"
 
 has_lyrics=false
 lyrics_md=""
@@ -118,9 +127,14 @@ perl -0777 -pe '
   s/\{\{lyrics_md\}\}/$ENV{LYRICS_MD}/g;
 ' "$template_file" > "$release_dir/release.eno"
 
-# --- move assets ----------------------------------------------------------
+# --- process + move assets ------------------------------------------------
 
-mv "${wav[0]}" "$release_dir/"
+"$MASTER_AUDIO" \
+  --input "$input_wav" \
+  --date "$date_today" \
+  --output "$mastered_flac" \
+  --title-file "$TPL/title" \
+  --archive-dir "$RAW"
 
 mv -- "$TPL/$coverArtFile" "$release_dir/$coverArtFile"
 
