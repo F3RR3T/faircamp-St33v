@@ -20,6 +20,9 @@ rsync -a --delete "$SOTD_BUILD" "$STAGE/sotd/"
 # generate robots/sitemap in the staged output
 gen-robots-sitemap.sh "$STAGE" "https://st33v.com"
 
+# inject SSI footer include hook into all staged HTML
+"$HOME/dox/st33v.com/forge/script/footer/injectFooterSsiHook" "$STAGE"
+
 # publish atomically
 log "Starting rsync stage → st33v.com"
 #rsync -a --delete "$STAGE/"/ "$REMOTE"

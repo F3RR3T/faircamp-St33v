@@ -1,0 +1,145 @@
+#!/usr/bin/env python3
+"""Inject an SSI footer include into staged HTML pages.
+
+Strategy:
+- Preferred: replace the first <footer>...</footer> block.
+- Fallback: inject include before </body>.
+
+By default, writes in-place without backups.
+Use --backup to create .bak backups for changed files.
+"""
+
+from __future__ import annotations
+
+import argparse
+import re
+import sys
+from pathlib import Path
+from typing import Iterable
+
+SSI_LINE = '<!--#include virtual="/include/footerInclude.html" -->'
+FOOTER_RE = re.compile(r"(?is)<footer\b[^>]*>.*?</footer>")
+BODY_CLOSE_RE = re.compile(r"(?is)</body>")
+
+
+def html_files(root: Path) -> Iterable[Path]:
+    for path in root.rglob("*.html"):
+        if path.is_file():
+            yield path
+
+
+def inject(text: str) -> tuple[str, str] | None:
+    if SSI_LINE in text:
+        return None
+
+    match = FOOTER_RE.search(text)
+    if match:
+        start = match.start()
+        line_start = text.rfind("\n", 0, start) + 1
+        indent_match = re.match(r"[ \t]*", text[line_start:start])
+        indent = indent_match.group(0) if indent_match else ""
+        replacement = f"{indent}{SSI_LINE}"
+        out = text[: start] + replacement + text[match.end() :]
+        return out, "replaced_footer"
+
+    match = BODY_CLOSE_RE.search(text)
+    if match:
+        start = match.start()
+        line_start = text.rfind("\n", 0, start) + 1
+        indent_match = re.match(r"[ \t]*", text[line_start:start])
+        indent = indent_match.group(0) if indent_match else ""
+        insertion = f"{indent}{SSI_LINE}\n"
+        out = text[:start] + insertion + text[start:]
+        return out, "inserted_before_body"
+
+    return None
+
+
+def revert_backups(root: Path, suffix: str) -> int:
+    restored = 0
+    for bak in root.rglob(f"*{suffix}"):
+        target = Path(str(bak)[: -len(suffix)])
+        bak.replace(target)
+        restored += 1
+    return restored
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("stage_dir", type=Path, help="Path to stage directory")
+    parser.add_argument("--backup-suffix", default=".bak", help="Backup suffix")
+    parser.add_argument("--backup", action="store_true", help="Write backups")
+    parser.add_argument("--no-backup", action="store_true", help="Deprecated alias; backups are already off by default")
+    parser.add_argument("--dry-run", action="store_true", help="Report only")
+    parser.add_argument("--revert", action="store_true", help="Restore from backup files and exit")
+    args = parser.parse_args()
+
+    root = args.stage_dir.resolve()
+    if not root.exists() or not root.is_dir():
+        print(f"error: not a directory: {root}", file=sys.stderr)
+        return 2
+
+    if args.revert:
+        restored = revert_backups(root, args.backup_suffix)
+        print(f"restored={restored} backup_suffix={args.backup_suffix} root={root}")
+        return 0
+
+    scanned = 0
+    changed = 0
+    replaced_footer = 0
+    inserted_before_body = 0
+    skipped_already_injected = 0
+    skipped_no_target = 0
+
+    for path in html_files(root):
+        scanned += 1
+        raw = path.read_text(encoding="utf-8", errors="ignore")
+        result = inject(raw)
+
+        if result is None:
+            if SSI_LINE in raw:
+                skipped_already_injected += 1
+            else:
+                skipped_no_target += 1
+            continue
+
+        new_text, mode = result
+        if new_text == raw:
+            skipped_no_target += 1
+            continue
+
+        changed += 1
+        if mode == "replaced_footer":
+            replaced_footer += 1
+        elif mode == "inserted_before_body":
+            inserted_before_body += 1
+
+        if not args.dry_run:
+            if args.backup and not args.no_backup:
+                backup = Path(f"{path}{args.backup_suffix}")
+                if not backup.exists():
+                    backup.write_text(raw, encoding="utf-8")
+            path.write_text(new_text, encoding="utf-8")
+
+    print(
+        " ".join(
+            [
+                f"root={root}",
+                f"scanned={scanned}",
+                f"changed={changed}",
+                f"replaced_footer={replaced_footer}",
+                f"inserted_before_body={inserted_before_body}",
+                f"skipped_already_injected={skipped_already_injected}",
+                f"skipped_no_target={skipped_no_target}",
+                f"dry_run={args.dry_run}",
+                f"backup={args.backup and not args.no_backup}",
+                f"backup_suffix={args.backup_suffix}",
+            ]
+        )
+    )
+
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
