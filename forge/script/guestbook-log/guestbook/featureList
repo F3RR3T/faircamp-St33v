@@ -1,0 +1,17 @@
+#  features / improvements for the guestbook.
+
+# previous session:
+# Token usage: total=564,738 input=531,459 (+ 1,627,904 cached) output=33,279 (reasoning 2,850)
+# To continue this session, run codex resume 019d1f6c-db11-7270-a9e1-23ca08834cd6
+
+The guestbook links are crowded and overlap slightly - suggest replace with button controls
+
+Links to pages could be converted to links for easier browsing.
+
+Comment count could include <this page> / <site wide>
+
+Convert logging to journalctl only
+
+When a new comment is submitted, add user-submitted name and n words in comment in INFO log entry.
+
+Update the daily nginx-log email to include new comments and running totals.
