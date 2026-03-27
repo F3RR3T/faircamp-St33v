@@ -77,16 +77,16 @@ Main config is TOML.
 
 ## Admin Commands
 
-Use [`bin/guestbook-admin`](/mnt/olho/dox/st33v.com/forge/script/guestbook-log/guestbook/bin/guestbook-admin) or `python3 -m guestbook.admin`.
+Use `guestbook-admin` after deployment, or [`bin/guestbook-admin`](/mnt/olho/dox/st33v.com/forge/script/guestbook-log/guestbook/bin/guestbook-admin) / `python3 -m guestbook.admin` in the repo.
 
 ```bash
-bin/guestbook-admin --config config/config.toml list-pending
-bin/guestbook-admin --config config/config.toml approve 12 --actor steve
-bin/guestbook-admin --config config/config.toml spam 19 --actor steve --notes "honeypot"
-bin/guestbook-admin --config config/config.toml recent --limit 20
-bin/guestbook-admin --config config/config.toml search telegram
-bin/guestbook-admin --config config/config.toml stats
-bin/guestbook-admin --config config/config.toml export --format csv
+guestbook-admin list-pending
+guestbook-admin approve 12 --actor steve
+guestbook-admin spam 19 --actor steve --notes "honeypot"
+guestbook-admin recent --limit 20
+guestbook-admin search telegram
+guestbook-admin stats
+guestbook-admin export --format csv
 ```
 
 ## Deployment
@@ -107,6 +107,7 @@ What it does:
 - creates a dedicated `st33v-guestbook` system user/group by default;
 - creates app/config/data/log directories;
 - installs Python package files and shell wrappers;
+- installs `guestbook-admin` into `/usr/local/bin/`;
 - installs config templates and wordlists;
 - initializes the SQLite DB if needed;
 - installs and restarts the systemd service;
