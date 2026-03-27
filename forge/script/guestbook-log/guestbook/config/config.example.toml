@@ -1,0 +1,34 @@
+[app]
+site_name = "st33v.com"
+bind_host = "127.0.0.1"
+bind_port = 8049
+base_path = "/guestbook"
+secret_key = "replace-this-with-a-random-secret"
+default_order = "newest"
+require_acknowledgement = false
+
+[paths]
+database_path = "/var/lib/st33v-guestbook/guestbook.db"
+blocklist_path = "/etc/st33v-guestbook/blocklist.txt"
+profanity_path = "/etc/st33v-guestbook/profanity.txt"
+
+[limits]
+max_name_length = 80
+min_comment_length = 2
+max_comment_length = 4000
+cooldown_seconds = 30
+max_per_hour = 5
+max_per_day = 20
+max_urls = 3
+max_uppercase_ratio = 0.45
+
+[moderation]
+mode = "score"
+auto_approve_score = 1
+auto_reject_score = 6
+blocked_url_domains = ["bit.ly", "tinyurl.com", "t.co"]
+
+[logging]
+level = "INFO"
+log_file = "/var/log/st33v-guestbook/app.log"
+

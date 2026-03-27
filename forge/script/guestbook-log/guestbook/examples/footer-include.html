@@ -1,0 +1,29 @@
+<div class="guestbook-footer" data-guestbook-path="">
+  <a class="guestbook-link" href="/guestbook/form">Sign the guestbook</a>
+  <a class="guestbook-link" href="/guestbook/page">Comments</a>
+  <a class="guestbook-link" href="/guestbook/all">View the book</a>
+  <span class="guestbook-count" aria-live="polite">...</span>
+</div>
+<script>
+  (function () {
+    const root = document.querySelector(".guestbook-footer");
+    if (!root) return;
+    const path = window.location.pathname || "/";
+    root.dataset.guestbookPath = path;
+
+    const formLink = root.querySelector('a[href="/guestbook/form"]');
+    const pageLink = root.querySelector('a[href="/guestbook/page"]');
+    if (formLink) formLink.href = "/guestbook/form?path=" + encodeURIComponent(path);
+    if (pageLink) pageLink.href = "/guestbook/page?path=" + encodeURIComponent(path);
+
+    fetch("/guestbook/count?path=" + encodeURIComponent(path), { credentials: "same-origin" })
+      .then(function (response) { return response.json(); })
+      .then(function (payload) {
+        const countNode = root.querySelector(".guestbook-count");
+        if (!countNode) return;
+        countNode.textContent = payload.approved_count + " comment" + (payload.approved_count === 1 ? "" : "s");
+      })
+      .catch(function () {});
+  })();
+</script>
+

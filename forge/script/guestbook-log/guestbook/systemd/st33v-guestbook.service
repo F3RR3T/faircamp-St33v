@@ -1,0 +1,16 @@
+[Unit]
+Description=st33v guestbook service
+After=network.target
+
+[Service]
+Type=simple
+User=@SERVICE_USER@
+Group=@SERVICE_GROUP@
+WorkingDirectory=@APP_ROOT@
+Environment=PYTHONPATH=@APP_ROOT@
+ExecStart=/usr/bin/env bash @APP_ROOT@/bin/guestbook-serve @CONFIG_ROOT@/config.toml
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -euo pipefail
+CONFIG_PATH="${1:-config/config.toml}"
+export PYTHONPATH="${PYTHONPATH:-.}"
+exec python3 -c "from guestbook.app import serve; serve('${CONFIG_PATH}')"

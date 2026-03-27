@@ -1,0 +1,6 @@
+# Keep this list maintainable and local.
+slur1
+slur2
+damn
+hell
+

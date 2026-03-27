@@ -1,10 +1,46 @@
 <footer>
+    <style>
+        .guestbook_footer_cluster {
+            display: inline-flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.6rem;
+            margin-left: 1rem;
+            font-size: 0.95em;
+        }
+        .guestbook_footer_cluster a {
+            white-space: nowrap;
+        }
+        .guestbook_footer_count {
+            opacity: 0.8;
+            white-space: nowrap;
+        }
+        .guestbook_footer_hint {
+            opacity: 0.7;
+            white-space: nowrap;
+        }
+        @media (max-width: 720px) {
+            .guestbook_footer_cluster {
+                display: flex;
+                margin-left: 0;
+                margin-top: 0.5rem;
+                width: 100%;
+            }
+        }
+    </style>
     <span>
         <a href="/">St33v™ Recording Studio</a>
         <button class="browse"><svg aria-hidden="true" width="1em" height="1em" version="1.1" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
 <path d="m15.521 8.9121c-3.5096 0-6.5566 2.7444-6.5566 6.2656v33.365c0 3.5212 3.0469 6.2676 6.5566 6.2676h12.959v-4.5625h-12.959c-1.2264 0-1.9922-0.81053-1.9922-1.7051v-33.365c0-0.89449 0.76579-1.7031 1.9922-1.7031h32.881c1.2263 0 1.9941 0.80858 1.9941 1.7031v13.174h4.5625v-13.174c0-3.5212-3.0469-6.2656-6.5566-6.2656h-32.881zm26.18 23.035v0.001953a9.7014 9.7014 0 0 0-9.7012 9.7012 9.7014 9.7014 0 0 0 9.7012 9.7012 9.7014 9.7014 0 0 0 5.4922-1.707l4.7168 4.7148c0.69133 0.69114 1.8128 0.69129 2.5039 0 0.69114-0.69132 0.69126-1.8127 0-2.5039l-4.7188-4.7148a9.7014 9.7014 0 0 0 1.707-5.4922 9.7014 9.7014 0 0 0-9.7012-9.7012zm0 3.5488a6.154 6.154 0 0 1 6.1543 6.1543 6.154 6.154 0 0 1-6.1543 6.1543 6.154 6.154 0 0 1-6.1543-6.1543 6.154 6.154 0 0 1 6.1543-6.1543z"/>
 </svg>
  Browse</button>
+        <span class="guestbook_footer_cluster" data-guestbook-path="">
+            <a class="guestbook_footer_form" href="/guestbook/form">Sign the guestbook</a>
+            <a class="guestbook_footer_page" href="/guestbook/page">Comments</a>
+            <a class="guestbook_footer_all" href="/guestbook/all">View the book</a>
+            <span class="guestbook_footer_count" aria-live="polite">...</span>
+            <span class="guestbook_footer_hint">Good-faith notes only.</span>
+        </span>
     </span>
     <a class="arch_btw_signature" href="https://archlinux.org/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;">
         <img src="/include/archBtwLogo.svg" alt="Arch, BTW" style="height:1.2em;width:auto;">
@@ -18,3 +54,33 @@
 <span>Faircamp 1.7</span>
 </a>
 </footer>
+<script>
+    (function () {
+        var root = document.querySelector(".guestbook_footer_cluster");
+        if (!root) return;
+
+        var path = window.location.pathname || "/";
+        root.dataset.guestbookPath = path;
+
+        var formLink = root.querySelector(".guestbook_footer_form");
+        var pageLink = root.querySelector(".guestbook_footer_page");
+        var countNode = root.querySelector(".guestbook_footer_count");
+
+        if (formLink) formLink.href = "/guestbook/form?path=" + encodeURIComponent(path);
+        if (pageLink) pageLink.href = "/guestbook/page?path=" + encodeURIComponent(path);
+
+        fetch("/guestbook/count?path=" + encodeURIComponent(path), { credentials: "same-origin" })
+            .then(function (response) {
+                if (!response.ok) throw new Error("count request failed");
+                return response.json();
+            })
+            .then(function (payload) {
+                if (!countNode) return;
+                var count = Number(payload.approved_count || 0);
+                countNode.textContent = count + " comment" + (count === 1 ? "" : "s");
+            })
+            .catch(function () {
+                if (countNode) countNode.textContent = "guestbook";
+            });
+    })();
+</script>
