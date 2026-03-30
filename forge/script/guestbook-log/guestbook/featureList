@@ -15,3 +15,21 @@ Convert logging to journalctl only
 When a new comment is submitted, add user-submitted name and n words in comment in INFO log entry.
 
 Update the daily nginx-log email to include new comments and running totals.
+
+
+The guestbook script give log messages like this:
+Mar 27 07:02:56 st33v env[630767]: 127.0.0.1 - - [27/Mar/2026 07:02:56] "GET /guestbook/all HTTP/1.1" 200 2229
+
+They could be more informative.
+
+# submission user case:
+Mar 27 07:06:05 st33v env[630767]: 127.0.0.1 - - [27/Mar/2026 07:06:05] "GET /guestbook/form?path=/nextex/ HTTP/1.1" 200 3340
+Mar 27 07:06:21 st33v env[630767]: 2026-03-27 07:06:21,613 INFO guestbook submission stored
+Mar 27 07:06:21 st33v env[630767]: 127.0.0.1 - - [27/Mar/2026 07:06:21] "POST /guestbook/submit HTTP/1.1" 200 1977
+Mar 27 07:06:24 st33v env[630767]: 127.0.0.1 - - [27/Mar/2026 07:06:24] "GET /guestbook/page?path=/nextex/ HTTP/1.1" 200 2241
+
+
+
+The guestbook pages need controls to return them to the main pages. Maybe just SSI the footer?
+
+
