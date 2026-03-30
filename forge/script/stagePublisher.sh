@@ -18,6 +18,7 @@ REMOTE="st33v@st33v.com:/srv/www/st33v.com/"
 # materialize staging tree (real files)
 rsync -a --delete --exclude='sotd' "$ROOT_BUILD" "$STAGE/"
 rsync -a --delete "$SOTD_BUILD" "$STAGE/sotd/"
+"$SCRIPT_DIR/sortPlaylist/reorder_playlist.m3u.sh" --in-place "$STAGE/sotd/playlist.m3u"
 
 # generate robots/sitemap in the staged output
 gen-robots-sitemap.sh "$STAGE" "https://st33v.com"
@@ -33,4 +34,3 @@ out="$(rsync -aP --delete --stats --human-readable -e 'ssh -p 40022' \
    "$STAGE/"/ "$REMOTE" 2>&1)" || die "rsync failed"
 summary="$(printf '%s\n' "$out" | awk '/sent .* bytes/ || /Total transferred file size:/ || /Number of deleted files:/ {print}')"
 log "rsync summary: $(printf '%s' "$summary" | paste -sd ' | ' -)"
-
