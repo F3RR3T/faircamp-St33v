@@ -5,6 +5,8 @@
 set -euo pipefail
 source /usr/local/bin/logNotify-lib
 
+SCRIPT_PATH="$(realpath "${BASH_SOURCE[0]}")"
+SCRIPT_DIR="$(cd "$(dirname "$SCRIPT_PATH")" && pwd)"
 ROOT_BUILD="$HOME/dox/st33v.com/faircamp/.faircamp_build/"
 SOTD_BUILD="$HOME/dox/st33v.com/sotd/.faircamp_build/"
 STAGE="$HOME/dox/st33v.com/stage"
