@@ -32,4 +32,8 @@ forge/template/*
 # Logs
 *.log
 
+# Python bytecode
+__pycache__/
+*.pyc
+
 deploy.sh
