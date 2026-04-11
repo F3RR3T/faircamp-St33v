@@ -16,7 +16,12 @@ REMOTE="st33v@st33v.com:/srv/www/st33v.com/"
 # mkdir -p "$STAGE/sotd"
 
 # materialize staging tree (real files)
-rsync -a --delete --exclude='sotd' "$ROOT_BUILD" "$STAGE/"
+rsync -a --delete \
+  --exclude='sotd' \
+  --exclude='robots.txt' \
+  --exclude='sitemap.xml' \
+  --exclude='.sitemap-state.tsv' \
+  "$ROOT_BUILD" "$STAGE/"
 rsync -a --delete "$SOTD_BUILD" "$STAGE/sotd/"
 "$SCRIPT_DIR/sortPlaylist/reorder_playlist.m3u.sh" --in-place "$STAGE/sotd/playlist.m3u"
 
