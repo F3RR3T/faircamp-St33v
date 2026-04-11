@@ -1,0 +1,104 @@
+title: Linked Lists for the Sorcerer’s Apprentice
+permalink:  2026-04-01-linkedlistsforthesorcerersapprentice
+date: 2026-04-01
+  
+release_artist: Song of the Day  
+
+cover:
+description = Cover image, linkedLists, for the song Linked Lists for the Sorcerer’s Apprentice
+file = linkedLists.jpg
+  
+--synopsis  
+Observe:   / each node contains a payload,   / and a pointer to the next.   / 
+--synopsis  
+  
+more_label: Lyrics    
+    
+--more  
+Observe:  
+each node contains a payload,  
+and a pointer to the next.  
+  
+Order is not kept in one place.  
+It is distributed.  
+Implied.  
+Rewired.  
+  
+A powerful device.  
+A dangerous device.  
+  
+Perhaps we should educate by example.  
+  
+[Verse 1]  
+I started with structs in a sensible array,    
+but the list said “professor, there’s a nimbler way.”    
+Take one little node and then send it away,    
+with a wink and a link and a next to obey.    
+  
+A payload by morning, a pointer by day,    
+splice into the sequence, then quietly relay.    
+You need not move memory in cumbersome dray,    
+just alter relation and remake the display.  
+  
+[Chorus]  
+Order from signal, and signal from light,    
+Meaning made local, then linked into sight.    
+Copy the pattern and keep it upright,    
+One little error and day becomes byte.    
+  
+Information’s fragile, exacting, and bright,    
+Not in the pieces alone, but the rite.    
+Follow the pointer and do it just right,    
+Night after node after luminous night.  
+  
+[Verse 2]  
+Now polymerase joins the game in its way,    
+and primers come hovering, eager to stay.    
+A sequence repeats and then doubles the play,    
+each phrase like a payload with something to say.    
+  
+We drop half a line and accelerate away,    
+yet rhyme still reorders the bright cabaret.    
+The brooms start obeying, then cease to obey,    
+and ten thousand cousins come out to relay.  
+  
+[Spoken Interjection]  
+Stop there.  
+  
+Never overwrite your only reference  
+before securing the next.  
+  
+Beware the dangling pointer.  
+Beware false comfort.  
+  
+C is honest about the knife.  
+  
+C++?  
+A joke in the name:  
+post-increment —  
+C, then one more.  
+  
+And Java:  
+pointers hidden under clerical robes,  
+as though the dragon were gone  
+because you cannot see it.  
+  
+Proceed.  
+Carefully.  
+  
+[Final Chorus]  
+Order from signal, and signal from light,    
+Meaning made local, then linked into sight.    
+Copy the pattern and keep it upright,    
+One little error and day becomes byte.    
+  
+Information is holy, abstruse, and bright,    
+Bound not by substance alone, but by rite.    
+Follow the pointer and do it just right,    
+Night after node after luminous night.  
+  
+[Outro]  
+Class dismissed.  
+No — wait.  
+Who still has the head pointer?  
+--more    
