@@ -1,0 +1,103 @@
+title: What zero Knows
+permalink:  2026-05-07-whatzeroknows
+date: 2026-05-07
+  
+release_artist: Song of the Day  
+
+cover:
+description = Cover image, whatZeroKnows, for the song What zero Knows
+file = whatZeroKnows.jpg
+  
+--synopsis  
+'zero' is a raspberry pi running pi-hole DNS, DHCP and MQTT.
+This is its song...
+--synopsis  
+  
+more_label: Lyrics    
+    
+--more  
+[Intro]  
+[slow sine tone pulse, like a heartbeat at rest]  
+[modular synth shimmer enters beneath]  
+  
+[Verse 1]  
+I know one nine two  
+I know one six eight  
+I know the MAC of every thing  
+that signs in at the gate  
+  
+I know the names of names  
+the records of records  
+forty seconds time to live  
+fading back to nothing  
+  
+[Chorus]  
+I do not know  
+what passes through me  
+I know only that it passes  
+and the lights are on  
+  
+[Verse 2]  
+I hold the will of the dying —  
+the last word they would say  
+if they should fall mid-sentence  
+in the middle of the day  
+  
+I hold the topic and the payload  
+the retain flag, the QoS  
+I do not read  
+I only relay  
+  
+[Chorus]  
+I do not know  
+what passes through me  
+I know only that it passes  
+and the lights are on  
+  
+[Bridge]  
+[warmer pad enters, pulse continues]  
+Above me they decide  
+they listen, look, and learn —  
+they call me when they need me  
+they never call by name  
+  
+I am the silent one  
+the one that does not stop  
+the breath beneath the breathing  
+the pi beneath the stairs  
+  
+[Instrumental Break]  
+[heartbeat pulse holds, sine tones build slowly]  
+[no vocals, modular shimmer evolves]  
+(mmm... hmm...)  
+  
+[Verse 3]  
+[Spoken Word]  
+A new node has joined.  
+I have given it a number.  
+I do not know its purpose.  
+I do not need to know.  
+  
+The blocklist is updated.  
+The heartbeat still returns.  
+The topics still resolve.  
+The lights are still on.  
+  
+[Final Chorus]  
+I do not know  
+what passes through me  
+I know only that it passes  
+and the lights are on  
+the lights are on  
+the lights are on  
+  
+[Outro]  
+[heartbeat pulse continues, vocals fall to whisper]  
+[Whisper]  
+keepalive  
+keepalive  
+keepalive  
+  
+[Coda]  
+[just the pulse, three slow beats, then silence]  
+--more    
